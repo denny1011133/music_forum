@@ -28,6 +28,12 @@ const adminController = {
         res.redirect('/admin/allAlbums')
       })
   },
+  getAlbum: (req, res) => {
+    return Album.findByPk(req.params.id, { raw: true })
+      .then(album => {
+        return res.render('admin/album', { album })
+      })
+  }
 }
 
 module.exports = adminController
