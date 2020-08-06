@@ -1,4 +1,4 @@
-const musicController = require('../controllers/musicController.js')
+const albumController = require('../controllers/albumController.js')
 const adminController = require('../controllers/adminController.js')
 const userController = require('../controllers/userController.js')
 
@@ -19,11 +19,11 @@ module.exports = (app, passport) => {
     res.redirect('/signin')
   }
 
-  app.get('/', authenticated, (req, res) => res.redirect('/all_music'))
-  app.get('/all_music', authenticated, musicController.getAllMusic)
+  app.get('/', authenticated, (req, res) => res.redirect('/allAlbums'))
+  app.get('/allAlbums', authenticated, albumController.getAllAlbums)
 
-  app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/all_music'))
-  app.get('/admin/all_music', authenticatedAdmin, adminController.getAllMusic)
+  app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/allAlbums'))
+  app.get('/admin/allAlbums', authenticatedAdmin, adminController.getAllAlbums)
 
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
@@ -31,4 +31,7 @@ module.exports = (app, passport) => {
   app.get('/signin', userController.signInPage)
   app.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
   app.get('/logout', userController.logout)
+
+  app.get('/admin/albums/create', authenticatedAdmin, adminController.createAlbum)
+  app.post('/admin/albums', authenticatedAdmin, adminController.postAlbum)
 }
