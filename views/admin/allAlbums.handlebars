@@ -10,16 +10,18 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">List</th>
       <th scope="col">Name</th>
-      <th scope="col">#</th>
+      <th scope="col">Artist</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     {{#each albums}}
     <tr>
       <th scope="row">{{this.id}}</th>
-      <td>{{this.name}}</td>
+      <td>⟪{{this.name}}⟫</td>
+      <td>⟪{{this.name}}⟫</td>
       <td>
         <button type="button" class="btn btn-link">
           <a href="/admin/albums/{{this.id}}">
