@@ -1,6 +1,6 @@
 const db = require('../models')
 const Album = db.Album
-
+const fs = require('fs')
 const adminController = {
   getAllAlbums: (req, res) => {
     return Album.findAll({ raw: true })
@@ -16,15 +16,33 @@ const adminController = {
       req.flash('error_messages', "請輸入專輯名稱!")
       return res.redirect('back')
     }
-    return Album.create({
-      name: req.body.name,
-      date: req.body.date,
-      description: req.body.description
-    })
-      .then(() => {
-        req.flash('success_messages', '專輯已成功建立!')
-        res.redirect('/admin/allAlbums')
+    const { file } = req
+    if (file) {
+      fs.readFile(file.path, (err, data) => {
+        if (err) console.log('Error: ', err)
+        fs.writeFile(`upload/${file.originalname}`, data, () => {
+          return Album.create({
+            name: req.body.name,
+            date: req.body.date,
+            description: req.body.description,
+            image: file ? `/upload/${file.originalname}` : null
+          }).then(() => {
+            req.flash('success_messages', '專輯已成功建立!')
+            return res.redirect('/admin/allAlbums')
+          })
+        })
       })
+    } else {
+      return Album.create({
+        name: req.body.name,
+        date: req.body.date,
+        description: req.body.description,
+        image: null
+      }).then(() => {
+        req.flash('success_messages', '專輯已成功建立!')
+        return res.redirect('/admin/allAlbums')
+      })
+    }
   },
   getAlbum: (req, res) => {
     return Album.findByPk(req.params.id, { raw: true })
@@ -44,18 +62,39 @@ const adminController = {
       return res.redirect('back')
     }
 
-    return Album.findByPk(req.params.id)
-      .then((Album) => {
-        Album.update({
-          name: req.body.name,
-          date: req.body.date,
-          description: req.body.description
+    const { file } = req
+    if (file) {
+      fs.readFile(file.path, (err, data) => {
+        if (err) console.log('Error: ', err)
+        fs.writeFile(`upload/${file.originalname}`, data, () => {
+          return Album.findByPk(req.params.id)
+            .then((album) => {
+              album.update({
+                name: req.body.name,
+                date: req.date,
+                description: req.body.description,
+                image: file ? `/upload/${file.originalname}` : album.image
+              }).then(() => {
+                req.flash('success_messages', '專輯已成功修改!')
+                res.redirect('/admin/allAlbums')
+              })
+            })
         })
-          .then(() => {
-            req.flash('success_messages', '專輯已成功修改!')
-            res.redirect('/admin/Allalbums')
-          })
       })
+    } else {
+      return Album.findByPk(req.params.id)
+        .then((album) => {
+          album.update({
+            name: req.body.name,
+            date: req.body.date,
+            description: req.body.description,
+            image: restaurant.image
+          }).then(() => {
+            req.flash('success_messages', '專輯已成功修改!')
+            res.redirect('/admin/allAlbums')
+          })
+        })
+    }
   },
   deleteAlbum: (req, res) => {
     return Album.findByPk(req.params.id)

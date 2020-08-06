@@ -1,6 +1,8 @@
 const albumController = require('../controllers/albumController.js')
 const adminController = require('../controllers/adminController.js')
 const userController = require('../controllers/userController.js')
+const multer = require('multer')
+const upload = multer({ dest: 'temp/' })
 
 module.exports = (app, passport) => {
   const authenticated = (req, res, next) => {
@@ -33,9 +35,9 @@ module.exports = (app, passport) => {
   app.get('/logout', userController.logout)
 
   app.get('/admin/albums/create', authenticatedAdmin, adminController.createAlbum)
-  app.post('/admin/albums', authenticatedAdmin, adminController.postAlbum)
+  app.post('/admin/albums', authenticatedAdmin, upload.single('image'), adminController.postAlbum)
   app.get('/admin/albums/:id', authenticatedAdmin, adminController.getAlbum)
   app.get('/admin/albums/:id/edit', authenticatedAdmin, adminController.editAlbum)
-  app.put('/admin/albums/:id', authenticatedAdmin, adminController.putAlbum)
+  app.put('/admin/albums/:id', authenticatedAdmin, upload.single('image'), adminController.putAlbum)
   app.delete('/admin/albums/:id', authenticatedAdmin, adminController.deleteAlbum)
 }
