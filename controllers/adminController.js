@@ -23,6 +23,8 @@ const adminController = {
         fs.writeFile(`upload/${file.originalname}`, data, () => {
           return Album.create({
             name: req.body.name,
+            artist: req.body.artist,
+            company: req.body.company,
             date: req.body.date,
             description: req.body.description,
             image: file ? `/upload/${file.originalname}` : null
@@ -35,6 +37,8 @@ const adminController = {
     } else {
       return Album.create({
         name: req.body.name,
+        artist: req.body.artist,
+        company: req.body.company,
         date: req.body.date,
         description: req.body.description,
         image: null
@@ -71,6 +75,8 @@ const adminController = {
             .then((album) => {
               album.update({
                 name: req.body.name,
+                artist: req.body.artist,
+                company: req.body.company,
                 date: req.date,
                 description: req.body.description,
                 image: file ? `/upload/${file.originalname}` : album.image
@@ -86,9 +92,11 @@ const adminController = {
         .then((album) => {
           album.update({
             name: req.body.name,
+            artist: req.body.artist,
+            company: req.body.company,
             date: req.body.date,
             description: req.body.description,
-            image: restaurant.image
+            image: album.image
           }).then(() => {
             req.flash('success_messages', '專輯已成功修改!')
             res.redirect('/admin/allAlbums')

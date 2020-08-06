@@ -7,12 +7,19 @@
       <label for="name">專輯名稱</label>
       <input type="text" class="form-control" name="name" id="name" placeholder="輸入專輯名稱" value="{{album.name}}">
     </div>
-
+    <div class="form-group">
+      <label for="artist">創作者</label>
+      <input type="text" class="form-control" name="artist" id="artist" placeholder="輸入創作者名稱" value="{{album.artist}}">
+    </div>
+    <div class="form-group">
+      <label for="company">發行公司</label>
+      <input type="text" class="form-control" name="company" id="company" placeholder="輸入發行公司名稱"
+        value="{{album.company}}">
+    </div>
     <div class="form-group">
       <label for="date">發行日期</label>
       <input type="text" class="form-control" name="date" id="date" placeholder="輸入發行日期" value="{{album.date}}">
     </div>
-
     <div class="form-group">
       <label for="description">專輯簡介</label>
       <textarea class="form-control" id="description" name="description" rows="3">{{album.description}}</textarea>
