@@ -57,6 +57,15 @@ const adminController = {
           })
       })
   },
+  deleteAlbum: (req, res) => {
+    return Album.findByPk(req.params.id)
+      .then(album => {
+        album.destroy()
+          .then(() => {
+            res.redirect('/admin/Allalbums')
+          })
+      })
+  }
 }
 
 module.exports = adminController
