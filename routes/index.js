@@ -52,7 +52,8 @@ module.exports = (app, passport) => {
   app.get('/users/:id', authenticated, userController.getUser)
   app.get('/users/:id/edit', authenticated, userController.editUser)
   app.put('/users/:id', authenticated, upload.single('image'), userController.putUser)
-
+  app.post('/favorite/:albumId', authenticated, userController.addFavorite)
+  app.delete('/favorite/:albumId', authenticated, userController.removeFavorite)
 
 
 }

@@ -25,7 +25,8 @@ const albumController = {
       const data = result.rows.map(a => ({
         ...a.dataValues,
         description: a.dataValues.description.substring(0, 40),
-        categoryName: a.Category.name
+        categoryName: a.Category.name,
+        isFavorited: req.user.FavoritedAlbums.map(d => d.id).includes(a.id)
       }))
       Category.findAll({
         raw: true,
@@ -47,10 +48,15 @@ const albumController = {
     return Album.findByPk(req.params.id, {
       include: [
         Category,
+        { model: User, as: 'FavoritedUsers' },
         { model: Comment, include: [User] }
       ]
     }).then(album => {
-      return res.render('album', { album: album.toJSON() })
+      const isFavorited = album.FavoritedUsers.map(d => d.id).includes(req.user.id)
+      return res.render('album', {
+        album: album.toJSON(),
+        isFavorited: isFavorited
+      })
     })
   },
   getFeeds: (req, res) => {
@@ -74,6 +80,7 @@ const albumController = {
         })
       })
     })
-  }
+  },
+
 }
 module.exports = albumController

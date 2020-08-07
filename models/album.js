@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Album.belongsTo(models.Category)
       Album.hasMany(models.Comment)
+      Album.belongsToMany(models.User, {
+        through: models.Favorite,
+        foreignKey: 'AlbumId',
+        as: 'FavoritedUsers'
+      })
     }
   };
   Album.init({

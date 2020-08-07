@@ -10,7 +10,14 @@
         <li><strong>Release Date:</strong> {{album.date}}</li>
         <li><strong>Company:</strong> {{album.company}}</li>
         <li><strong>Category:</strong> {{album.Category.name}}</li>
-
+        <br />
+        {{#if isFavorited }}
+        <form action="/favorite/{{album.id}}?_method=DELETE" method="POST" style="display: contents;"><button
+            type="submit" class="btn btn-danger">移除最愛</button></form>
+        {{else}}
+        <form action="/favorite/{{album.id}}" method="POST" style="display: contents;"><button type="submit"
+            class="btn btn-primary">加到最愛</button></form>
+        {{/if}}
       </ul>
     </div>
   </div>
