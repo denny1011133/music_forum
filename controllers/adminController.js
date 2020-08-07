@@ -1,6 +1,8 @@
 const db = require('../models')
 const Album = db.Album
 const fs = require('fs')
+const imgur = require('imgur-node-api')
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const adminController = {
   getAllAlbums: (req, res) => {
     return Album.findAll({ raw: true })
@@ -18,23 +20,22 @@ const adminController = {
     }
     const { file } = req
     if (file) {
-      fs.readFile(file.path, (err, data) => {
-        if (err) console.log('Error: ', err)
-        fs.writeFile(`upload/${file.originalname}`, data, () => {
-          return Album.create({
-            name: req.body.name,
-            artist: req.body.artist,
-            company: req.body.company,
-            date: req.body.date,
-            description: req.body.description,
-            image: file ? `/upload/${file.originalname}` : null
-          }).then(() => {
-            req.flash('success_messages', '專輯已成功建立!')
-            return res.redirect('/admin/allAlbums')
-          })
+      imgur.setClientID(IMGUR_CLIENT_ID);
+      imgur.upload(file.path, (err, img) => {
+        return Album.create({
+          name: req.body.name,
+          artist: req.body.artist,
+          company: req.body.company,
+          date: req.body.date,
+          description: req.body.description,
+          image: file ? img.data.link : null
+        }).then(() => {
+          req.flash('success_messages', '專輯已成功建立!')
+          return res.redirect('/admin/allAlbums')
         })
       })
-    } else {
+    }
+    else {
       return Album.create({
         name: req.body.name,
         artist: req.body.artist,
@@ -68,26 +69,25 @@ const adminController = {
 
     const { file } = req
     if (file) {
-      fs.readFile(file.path, (err, data) => {
-        if (err) console.log('Error: ', err)
-        fs.writeFile(`upload/${file.originalname}`, data, () => {
-          return Album.findByPk(req.params.id)
-            .then((album) => {
-              album.update({
-                name: req.body.name,
-                artist: req.body.artist,
-                company: req.body.company,
-                date: req.date,
-                description: req.body.description,
-                image: file ? `/upload/${file.originalname}` : album.image
-              }).then(() => {
-                req.flash('success_messages', '專輯已成功修改!')
-                res.redirect('/admin/allAlbums')
-              })
+      imgur.setClientID(IMGUR_CLIENT_ID);
+      imgur.upload(file.path, (err, img) => {
+        return Album.findByPk(req.params.id)
+          .then((album) => {
+            album.update({
+              name: req.body.name,
+              artist: req.body.artist,
+              company: req.body.company,
+              date: req.date,
+              description: req.body.description,
+              image: file ? img.data.link : album.image
+            }).then(() => {
+              req.flash('success_messages', '專輯已成功修改!')
+              res.redirect('/admin/allAlbums')
             })
-        })
+          })
       })
-    } else {
+    }
+    else {
       return Album.findByPk(req.params.id)
         .then((album) => {
           album.update({
