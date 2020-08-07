@@ -25,6 +25,16 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});
+    queryInterface.bulkInsert('Categories',
+      ['流行', '搖滾', '嘻哈', '爵士', '古典', '鄉村', '獨立']
+        .map((item, index) =>
+          ({
+            id: index + 1,
+            name: item,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          })
+        ), {})
     return queryInterface.bulkInsert('Albums',
       Array.from({ length: 50 }).map(d =>
         ({
@@ -35,22 +45,14 @@ module.exports = {
           image: faker.image.imageUrl(),
           description: faker.lorem.text(),
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          CategoryId: Math.floor(Math.random() * 5) + 1
         })
       ), {});
-
-
-
-
-
-
-
-
-
   },
-
   down: async (queryInterface, Sequelize) => {
-    queryInterface.bulkDelete('Users', null, {})
+    queryInterface.bulkDelete('Users', null, {});
+    queryInterface.bulkDelete('Categories', null, {});
     return queryInterface.bulkDelete('Albums', null, {});
   }
 };

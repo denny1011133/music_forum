@@ -15,6 +15,7 @@
       <th scope="col">List</th>
       <th scope="col">Album</th>
       <th scope="col">Artist</th>
+      <th scope="col">Category</th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -24,6 +25,7 @@
       <th scope="row">{{this.id}}</th>
       <td>{{this.name}}</td>
       <td>{{this.artist}}</td>
+      <td>{{this.Category.name}}</td>
       <td>
         <button type="button" class="btn btn-link">
           <a href="/admin/albums/{{this.id}}">

@@ -1,18 +1,28 @@
 const db = require('../models')
 const Album = db.Album
+const Category = db.Category
 const User = db.User
 const fs = require('fs')
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const adminController = {
   getAllAlbums: (req, res) => {
-    return Album.findAll({ raw: true })
+    return Album.findAll({
+      raw: true,
+      nest: true,
+      include: [Category]
+    })
       .then(albums => {
         return res.render('admin/allAlbums', { albums })
       })
   },
   createAlbum: (req, res) => {
-    return res.render('admin/create')
+    Category.findAll({
+      raw: true,
+      nest: true
+    }).then(categories => {
+      return res.render('admin/create', { categories })
+    })
   },
   postAlbum: (req, res) => {
     if (!req.body.name) {
@@ -29,7 +39,8 @@ const adminController = {
           company: req.body.company,
           date: req.body.date,
           description: req.body.description,
-          image: file ? img.data.link : null
+          image: file ? img.data.link : null,
+          CategoryId: req.body.categoryId
         }).then(() => {
           req.flash('success_messages', '專輯已成功建立!')
           return res.redirect('/admin/allAlbums')
@@ -43,7 +54,8 @@ const adminController = {
         company: req.body.company,
         date: req.body.date,
         description: req.body.description,
-        image: null
+        image: null,
+        CategoryId: req.body.categoryId
       }).then(() => {
         req.flash('success_messages', '專輯已成功建立!')
         return res.redirect('/admin/allAlbums')
@@ -51,16 +63,23 @@ const adminController = {
     }
   },
   getAlbum: (req, res) => {
-    return Album.findByPk(req.params.id, { raw: true })
+    return Album.findByPk(req.params.id, { include: [Category] })
       .then(album => {
-        return res.render('admin/album', { album })
+        return res.render('admin/album', { album: album.toJSON() })
       })
   },
   editAlbum: (req, res) => {
-    return Album.findByPk(req.params.id, { raw: true })
-      .then(album => {
-        return res.render('admin/create', { album })
+    Category.findAll({
+      raw: true,
+      nest: true
+    }).then(categories => {
+      return Album.findByPk(req.params.id).then(album => {
+        return res.render('admin/create', {
+          categories: categories,
+          album: album.toJSON()
+        })
       })
+    })
   },
   putAlbum: (req, res) => {
     if (!req.body.name) {
@@ -80,7 +99,8 @@ const adminController = {
               company: req.body.company,
               date: req.date,
               description: req.body.description,
-              image: file ? img.data.link : album.image
+              image: file ? img.data.link : album.image,
+              CategoryId: req.body.categoryId
             }).then(() => {
               req.flash('success_messages', '專輯已成功修改!')
               res.redirect('/admin/allAlbums')
@@ -97,7 +117,8 @@ const adminController = {
             company: req.body.company,
             date: req.body.date,
             description: req.body.description,
-            image: album.image
+            image: album.image,
+            CategoryId: req.body.categoryId
           }).then(() => {
             req.flash('success_messages', '專輯已成功修改!')
             res.redirect('/admin/allAlbums')

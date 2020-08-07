@@ -12,6 +12,14 @@
       <input type="text" class="form-control" name="artist" id="artist" placeholder="請輸入創作者名稱" value="{{album.artist}}">
     </div>
     <div class="form-group">
+      <label for="categoryId">Category</label>
+      <select class="form-control" id="categoryId" name="categoryId">
+        {{#each categories}}
+        <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="form-group">
       <label for="company">發行公司</label>
       <input type="text" class="form-control" name="company" id="company" placeholder="請輸入發行公司名稱"
         value="{{album.company}}">
