@@ -1,5 +1,7 @@
 const db = require('../models')
 const Album = db.Album
+const Comment = db.Comment
+const User = db.User
 const Category = db.Category
 const pageLimit = 10
 const albumController = {
@@ -42,7 +44,12 @@ const albumController = {
     })
   },
   getAlbum: (req, res) => {
-    return Album.findByPk(req.params.id, { include: Category }).then(album => {
+    return Album.findByPk(req.params.id, {
+      include: [
+        Category,
+        { model: Comment, include: [User] }
+      ]
+    }).then(album => {
       return res.render('album', { album: album.toJSON() })
     })
   }
