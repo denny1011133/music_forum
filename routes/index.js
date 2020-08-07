@@ -40,4 +40,6 @@ module.exports = (app, passport) => {
   app.get('/admin/albums/:id/edit', authenticatedAdmin, adminController.editAlbum)
   app.put('/admin/albums/:id', authenticatedAdmin, upload.single('image'), adminController.putAlbum)
   app.delete('/admin/albums/:id', authenticatedAdmin, adminController.deleteAlbum)
+  app.get('/admin/users', authenticatedAdmin, adminController.getUsers)
+  app.put('/admin/users/:id', authenticatedAdmin, adminController.putUsers)
 }

@@ -1,5 +1,6 @@
 const db = require('../models')
 const Album = db.Album
+const User = db.User
 const fs = require('fs')
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
@@ -112,6 +113,26 @@ const adminController = {
             res.redirect('/admin/Allalbums')
           })
       })
+  },
+  getUsers: (req, res) => {
+    return User.findAll({ raw: true }).then(users => {
+      return res.render('admin/users', { users })
+    })
+  },
+  putUsers: (req, res) => {
+    return User.findByPk(req.params.id)
+      .then(user => {
+        if (user.isAdmin) {
+          user.update({ isAdmin: false })
+          req.flash('success_messages', "admin is updated to user successfully!")
+        }
+        else {
+          user.update({ isAdmin: true })
+          req.flash('success_messages', "user is updated to admin successfully!")
+        }
+        return res.redirect('/admin/users')
+      })
+
   }
 }
 
