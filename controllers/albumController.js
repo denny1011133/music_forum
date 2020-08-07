@@ -52,6 +52,28 @@ const albumController = {
     }).then(album => {
       return res.render('album', { album: album.toJSON() })
     })
+  },
+  getFeeds: (req, res) => {
+    return Album.findAll({
+      limit: 10,
+      raw: true,
+      nest: true,
+      order: [['createdAt', 'DESC']],
+      include: [Category]
+    }).then(albums => {
+      Comment.findAll({
+        limit: 10,
+        raw: true,
+        nest: true,
+        order: [['createdAt', 'DESC']],
+        include: [User, Album]
+      }).then(comments => {
+        return res.render('feeds', {
+          albums,
+          comments
+        })
+      })
+    })
   }
 }
 module.exports = albumController
