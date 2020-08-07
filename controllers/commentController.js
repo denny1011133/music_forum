@@ -10,6 +10,15 @@ let commentController = {
       .then(() => {
         res.redirect(`/albums/${req.body.albumId}`)
       })
+  },
+  deleteComment: (req, res) => {
+    return Comment.findByPk(req.params.id)
+      .then((comment) => {
+        comment.destroy()
+          .then((comment) => {
+            res.redirect(`/albums/${comment.AlbumId}`)
+          })
+      })
   }
 }
 module.exports = commentController
