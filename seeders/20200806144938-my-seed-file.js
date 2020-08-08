@@ -9,21 +9,24 @@ module.exports = {
       isAdmin: true,
       name: 'root',
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      image: 'https://loremflickr.com/320/240/paris,girl/all'
     }, {
       email: 'user1@example.com',
       password: bcrypt.hashSync('123', bcrypt.genSaltSync(10), null),
       isAdmin: false,
       name: 'user1',
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      image: 'https://loremflickr.com/320/240/paris,girl/all'
     }, {
       email: 'user2@example.com',
       password: bcrypt.hashSync('123', bcrypt.genSaltSync(10), null),
       isAdmin: false,
       name: 'user2',
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      image: 'https://loremflickr.com/320/240/paris,girl/all'
     }], {});
     queryInterface.bulkInsert('Categories',
       ['流行', '搖滾', '嘻哈', '爵士', '古典', '鄉村', '獨立']
@@ -42,7 +45,7 @@ module.exports = {
           date: "2020-06-07",
           artist: faker.name.findName(),
           company: faker.company.companyName(),
-          image: faker.image.imageUrl(),
+          image: 'https://loremflickr.com/320/240/dog',
           description: faker.lorem.text(),
           createdAt: new Date(),
           updatedAt: new Date(),
