@@ -46,6 +46,7 @@ module.exports = (app, passport) => {
   app.put('/admin/categories/:id', authenticatedAdmin, categoryController.putCategory)
   app.delete('/admin/categories/:id', authenticatedAdmin, categoryController.deleteCategory)
   app.get('/albums/feeds', authenticated, albumController.getFeeds)
+  app.get('/albums/top', authenticated, albumController.getTopAlbums)
   app.get('/albums/:id', authenticated, albumController.getAlbum)
   app.post('/comments', authenticated, commentController.postComment)
   app.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment)

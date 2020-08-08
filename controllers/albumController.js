@@ -85,6 +85,23 @@ const albumController = {
       })
     })
   },
-
+  getTopAlbums: (req, res) => {
+    return Album.findAll({
+      include: [
+        { model: User, as: 'FavoritedUsers' }
+      ]
+    })
+      .then(albums => {
+        albums = albums.map(a => ({
+          ...a.dataValues,
+          description: a.dataValues.description.substring(0, 50),
+          FavoriteCount: a.FavoritedUsers.length,
+          isFavorited: req.user.FavoritedAlbums.map(d => d.id).includes(a.id)
+        }))
+        albums = albums.sort((a, b) => (b.FavoriteCount - a.FavoriteCount)).slice(0, 10)
+        return res.render('topAlbum', { albums })
+      })
+      .catch(err => res.send(console.log(err)))
+  }
 }
 module.exports = albumController

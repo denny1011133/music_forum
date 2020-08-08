@@ -1,0 +1,45 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" href="/albums">首頁</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/albums/feeds">最新動態</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/albums/top">TOP10排行榜</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/users/top">音樂達人</a>
+  </li>
+</ul>
+
+<div class="row">
+  {{#each albums}}
+  <div class="card mb-3 col-12 m-2" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4" style="padding-top: 25px;">
+        <img src="{{this.image}}" class="card-img" alt="album-img">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{this.name}}</h5>
+          <span class="badge badge-secondary">收藏量 : {{this.FavoriteCount}}</span>
+          <p class="card-text">{{this.description}}</p>
+          <div class=" d-flex">
+            <a href="/albums/{{this.id}}" class="btn btn-primary mr-3">Show</a>
+            {{#if this.isFavorited}}
+            <form action="/favorite/{{this.id}}?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-danger">移除最愛</button>
+            </form>
+            {{else}}
+            <form action="/favorite/{{this.id}}" method="POST">
+              <button type="submit" class="btn btn-primary">加入最愛</button>
+            </form>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>
