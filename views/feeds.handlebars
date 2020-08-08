@@ -24,8 +24,9 @@
         {{#each albums}}
         <div>
           <h4>
-            <a href="/albums/{{this.id}}">{{this.name}}</a>
-            <small>{{this.Category.name}}</small>
+            <a href="/albums/{{this.id}}">{{this.name}}</a>|{{this.artist}}
+            <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
+            <span class="badge badge-pill badge-info" style="font-size: 15px;">{{this.Category.name}}</span>
           </h4>
           <p>{{this.description}}</p>
           {{moment this.createdAt}}
@@ -44,7 +45,7 @@
         {{#each comments}}
         <div>
           <h4>
-            <a href="/albums/{{this.Album.id}}">{{this.Album.name}}</a>
+            <a href="/albums/{{this.Album.id}}">{{this.Album.name}}</a>|{{this.Album.artist}}
           </h4>
           <p>{{this.text}}</p>
           by <a href="/users/{{this.User.id}}">{{this.User.name}}</a>
