@@ -13,18 +13,22 @@
         <br />
         {{#if isFavorited }}
         <form action="/favorite/{{album.id}}?_method=DELETE" method="POST" style="display: contents;"><button
-            type="submit" class="btn btn-danger">移除最愛</button></form>
+            type="submit" class="btn btn-danger"><i class="far fa-heart"></i>
+          </button></form></button></form>
         {{else}}
         <form action="/favorite/{{album.id}}" method="POST" style="display: contents;"><button type="submit"
-            class="btn btn-primary">加到最愛</button></form>
+            class="btn btn-primary"><i class="fas fa-heart"></i>
+          </button></form>
         {{/if}}
         {{#if isLiked }}
         <form action="/like/{{album.id}}?_method=DELETE" method="POST" style="display: contents;"><button type="submit"
-            class="btn btn-danger">Unlike</button>
+            class="btn btn-danger"><i class="far fa-thumbs-up"></i>
+          </button>
         </form>
         {{else}}
         <form action="/like/{{album.id}}" method="POST" style="display: contents;"><button type="submit"
-            class="btn btn-primary">Like</button>
+            class="btn btn-primary"><i class="fas fa-thumbs-up"></i>
+          </button>
         </form>
         {{/if}}
       </ul>
@@ -40,7 +44,8 @@
 {{#each album.Comments}}
 {{#if ../user.isAdmin}}
 <form action="/comments/{{this.id}}?_method=DELETE" method="POST" style="float: right;">
-  <button type="submit" class="btn btn-danger">Delete</button>
+  <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i>
+  </button>
 </form>
 {{/if}}
 <blockquote class="blockquote mb-0">

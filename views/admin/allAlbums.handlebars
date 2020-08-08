@@ -1,12 +1,12 @@
 <h1>專輯列表</h1>
-<a href='/admin/AllAlbums'>Albums </a>|
-<a href='/admin/categories'>Categories </a>|
-<a href="/admin/users">Users</a>
+<a href='/admin/AllAlbums' style="font-size: large">Albums </a>|
+<a href='/admin/categories' style="font-size: large">Categories </a>|
+<a href="/admin/users" style="font-size: large">Users</a>
 <br />
 <br />
 <br />
 <a href='/admin/albums/create'>
-  <button type="button" class="btn btn-primary">New Album</button>
+  <button type="button" class="btn btn-primary" style="font-size: large">New Album</button>
 </a>
 
 <br />
@@ -15,33 +15,34 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">List</th>
-      <th scope="col">Album</th>
-      <th scope="col">Artist</th>
-      <th scope="col">Category</th>
+      <th scope="col" style="font-size: large">List</th>
+      <th scope="col" style="font-size: large">Album</th>
+      <th scope="col" style="font-size: large">Artist</th>
+      <th scope="col" style="font-size: large">Category</th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     {{#each albums}}
     <tr>
-      <th scope="row">{{this.id}}</th>
-      <td>{{this.name}}</td>
-      <td>{{this.artist}}</td>
-      <td>{{this.Category.name}}</td>
+      <th scope="row" style="font-size: large">{{this.id}}</th>
+      <td style="font-size: large">{{this.name}}</td>
+      <td style="font-size: large">{{this.artist}}</td>
+      <td style="font-size: large">{{this.Category.name}}</td>
       <td>
         <button type="button" class="btn btn-link">
-          <a href="/admin/albums/{{this.id}}">
-            Show
+          <a href="/admin/albums/{{this.id}}" style="font-size: large">
+            <i class="fas fa-info-circle"></i>
           </a>
         </button>
         <button type="button" class="btn btn-link">
-          <a href="/admin/albums/{{this.id}}/edit">
-            Edit
+          <a href="/admin/albums/{{this.id}}/edit" style="font-size: large">
+            <i class="fas fa-edit"></i>
           </a>
         </button>
         <form action="/admin/albums/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link">Delete</button>
+          <button type="submit" class="btn btn-link" style="font-size: large"><i class="fas fa-trash-alt"></i>
+          </button>
         </form>
       </td>
     </tr>

@@ -1,7 +1,7 @@
 <h1>分類列表</h1>
-<a href='/admin/AllAlbums'>Albums </a>|
-<a href='/admin/categories'>Categories </a>|
-<a href="/admin/users">Users</a>
+<a href='/admin/AllAlbums' style="font-size:larger">Albums </a>|
+<a href='/admin/categories' style="font-size:larger">Categories </a>|
+<a href="/admin/users" style="font-size:larger">Users</a>
 <br />
 <br />
 <br />
@@ -24,24 +24,25 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">List</th>
-      <th scope="col">Category Name</th>
+      <th scope="col" style="font-size:larger">List</th>
+      <th scope="col" style="font-size:larger">Category Name</th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     {{#each categories}}
     <tr>
-      <th scope="row">{{this.id}}</th>
-      <td>{{this.name}}</td>
+      <th scope="row" style="font-size:larger">{{this.id}}</th>
+      <td style="font-size:larger">{{this.name}}</td>
       <td>
-        <button type="button" class="btn btn-link">
+        <button type="button" class="btn btn-link" style="font-size:larger">
           <a href="/admin/categories/{{this.id}}">
-            Edit
+            <i class="fas fa-edit"></i>
           </a>
         </button>
         <form action="/admin/categories/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link">Delete</button>
+          <button type="submit" class="btn btn-link" style="font-size:larger"><i class="fas fa-trash-alt"></i>
+          </button>
         </form>
       </td>
     </tr>

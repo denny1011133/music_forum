@@ -1,15 +1,15 @@
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link" href="/albums">首頁</a>
+    <a class="nav-link" href="/allAlbums" style="font-size:larger">首頁</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/albums/feeds">最新動態</a>
+    <a class="nav-link" href="/albums/feeds" style="font-size:larger">最新動態</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="/albums/top">TOP10排行榜</a>
+    <a class="nav-link active" href="/albums/top" style="font-size:larger">TOP10排行榜</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " href="/users/top">音樂達人</a>
+    <a class="nav-link " href="/users/top" style="font-size:larger">音樂達人</a>
   </li>
 </ul>
 
@@ -29,11 +29,13 @@
             <a href="/albums/{{this.id}}" class="btn btn-primary mr-3">Show</a>
             {{#if this.isFavorited}}
             <form action="/favorite/{{this.id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-danger">移除最愛</button>
+              <button type="submit" class="btn btn-danger"><i class="far fa-heart"></i>
+              </button></form></button>
             </form>
             {{else}}
             <form action="/favorite/{{this.id}}" method="POST">
-              <button type="submit" class="btn btn-primary">加入最愛</button>
+              <button type="submit" class="btn btn-primary"><i class="fas fa-heart"></i>
+              </button></form></button>
             </form>
             {{/if}}
           </div>
