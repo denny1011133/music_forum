@@ -47,7 +47,7 @@
 ```
 ```bash
 5. 建立.env的檔案，自行輸入相關資料
-IMGUR_CLIENT_ID="XXXXXXX"
+   IMGUR_CLIENT_ID="XXXXXXX"
 ```
 ```bash
 6. 執行程式
