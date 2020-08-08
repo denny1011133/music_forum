@@ -55,8 +55,8 @@
 開啟網頁輸入: http://localhost:3000
 ```
 ## 測試帳號
-| name | email |
-| ------ | ------ |
-| root | root@example.com |
-| user1 | user1@example.com |
-| user2 | user2@example.com |
+| name | email | password |
+| ------ | ------ | ----- |
+| root | root@example.com | 123 |
+| user1 | user1@example.com | 123 |
+| user2 | user2@example.com | 123 |
