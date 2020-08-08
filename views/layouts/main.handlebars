@@ -25,15 +25,14 @@
         {{#if user.isAdmin}}
         <a href="/admin" style="color: white;margin-right: 10px; font-size: large;">後台</a>
         {{/if}}
-        <a href="/logout"><button class="btn btn-success my-2 my-sm-0">LogOut</button></a>
+        <a href="/logout"><button class="btn btn-light my-2 my-sm-0">LogOut</button></a>
         {{/if}}
       </div>
     </div>
   </nav>
   <br />
   <main role="main">
-    <div class="album py-5 bg-light"
-      style="background-image: url(https://images.pexels.com/photos/2088205/pexels-photo-2088205.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260);background-size: cover;">
+    <div class="album py-5 bg-light" style="background-color: darkgrey;">
       <div class="container">
         {{#if success_messages}}
         <div class="alert alert-success  alert-dismissible fade show" role="alert" style="margin: 30px 0 ;">
