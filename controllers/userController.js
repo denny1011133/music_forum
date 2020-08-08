@@ -4,6 +4,7 @@ const User = db.User
 const Comment = db.Comment
 const Album = db.Album
 const Favorite = db.Favorite
+const Like = db.Like
 const fs = require('fs')
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
@@ -115,6 +116,29 @@ const userController = {
     })
       .then((favorite) => {
         favorite.destroy()
+          .then(() => {
+            return res.redirect('back')
+          })
+      })
+  },
+  addLike: (req, res) => {
+    return Like.create({
+      UserId: req.user.id,
+      AlbumId: req.params.albumId
+    }).then(() => {
+      return res.redirect('back')
+    }).catch(err => console.log(err))
+  },
+
+  removeLike: (req, res) => {
+    return Like.findOne({
+      where: {
+        UserId: req.user.id,
+        AlbumId: req.params.albumId
+      }
+    })
+      .then((Like) => {
+        Like.destroy()
           .then(() => {
             return res.redirect('back')
           })

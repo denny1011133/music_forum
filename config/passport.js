@@ -26,7 +26,8 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser((id, cb) => {
   User.findByPk(id, {
     include: [
-      { model: Album, as: 'FavoritedAlbums' }
+      { model: Album, as: 'FavoritedAlbums' },
+      { model: Album, as: 'LikedAlbums' }
     ]
   }).then(user => {
     user = user.toJSON()

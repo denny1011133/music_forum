@@ -26,7 +26,8 @@ const albumController = {
         ...a.dataValues,
         description: a.dataValues.description.substring(0, 40),
         categoryName: a.Category.name,
-        isFavorited: req.user.FavoritedAlbums.map(d => d.id).includes(a.id)
+        isFavorited: req.user.FavoritedAlbums.map(d => d.id).includes(a.id),
+        isLiked: req.user.LikedAlbums.map(d => d.id).includes(a.id)
       }))
       Category.findAll({
         raw: true,
@@ -49,13 +50,16 @@ const albumController = {
       include: [
         Category,
         { model: User, as: 'FavoritedUsers' },
+        { model: User, as: 'LikedUsers' },
         { model: Comment, include: [User] }
       ]
     }).then(album => {
       const isFavorited = album.FavoritedUsers.map(d => d.id).includes(req.user.id)
+      const isLiked = album.LikedUsers.map(d => d.id).includes(req.user.id)
       return res.render('album', {
         album: album.toJSON(),
-        isFavorited: isFavorited
+        isFavorited: isFavorited,
+        isLiked: isLiked
       })
     })
   },
