@@ -2,6 +2,7 @@
 **音樂大小事**是一個音樂資訊交流的地方，可以讓您找到喜愛的音樂並與其他人分享!
 
 ![1](https://i.imgur.com/hZ1rpFJ.png)
+![2](https://i.imgur.com/E6CCK2q.png)
 ## 基礎環境設定
 利用[Node.js](https://nodejs.org/en/)建立伺服器  
 利用[MySQL](https://www.mysql.com/)搭配[MySQL Workbench](https://www.mysql.com/products/workbench/)建立資料庫
